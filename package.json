@@ -1,10 +1,10 @@
 {
   "name": "FaztWare",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "An ecommerce website",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js --exec babel-node"
+    "dev": "nodemon src/index.js --exec babel-node --ignore client"
   },
   "keywords": [],
   "author": "",

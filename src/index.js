@@ -1,5 +1,6 @@
 import express from "express";
 import "./config/mongoose";
+import { PORT } from "./config";
 
 import productRoutes from "./routes/products.routes";
 
@@ -9,5 +10,5 @@ app.use(express.json());
 
 app.use(productRoutes);
 
-app.listen(3000);
-console.log("Server on port", 3000);
+app.listen(PORT);
+console.log("Server on port", PORT);
