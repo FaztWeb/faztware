@@ -1,12 +1,11 @@
 import React from "react";
-import { useContext } from "react";
-import { ProductContext } from "../../context/providers/ProductsContext";
+import { useProducts } from "../../context/providers/ProductsContext";
 import Hero from "../../components/Hero";
 
 const HomePage = () => {
-  const { isLoading, products } = useContext(ProductContext);
+  const { isLoading, products, addNewProduct} = useProducts();
 
-  console.log(products);
+  console.log(addNewProduct);
   if (isLoading) {
     return (
       <div className="d-flex justify-content-center align-items-center h-100">
@@ -21,7 +20,7 @@ const HomePage = () => {
     <div className="row">
       <Hero />
       {products.map((product) => (
-        <div className="col-md-4">
+        <div className="col-md-4" key={product._id}>
           <div className="card card-body">
             <h1>{product.name}</h1>
             <p>{product.description}</p>
