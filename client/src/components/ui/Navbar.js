@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useAuth } from "../../context/providers/AuthContext";
 
 const Navbar = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container">
@@ -20,15 +23,18 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav ms-auto">
-            <a className="nav-link active" aria-current="page" href="#">
+            <a className="nav-link active" aria-current="page" href="#!">
               Cart
             </a>
-            <a className="nav-link" href="#">
-              Login
-            </a>
-            <Link className="nav-link" to="/products/new">
-              New Product
-            </Link>
+            {isLoggedIn ? (
+              <Link className="nav-link" to="/products/new">
+                New Product
+              </Link>
+            ) : (
+              <Link className="nav-link" to="/auth/signup">
+                Signup
+              </Link>
+            )}
           </div>
         </div>
       </div>

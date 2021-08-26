@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useProducts } from "../../context/providers/ProductsContext";
+import Spinner from "../../components/ui/Spinner";
 
 const ProductForm = () => {
   const { addNewProduct, isLoading } = useProducts();
@@ -31,11 +32,7 @@ const ProductForm = () => {
               >
                 {isLoading ? (
                   <>
-                    <span
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
+                    <Spinner />
                     <span className="ms-2">Loading...</span>
                   </>
                 ) : (

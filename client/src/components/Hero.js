@@ -10,10 +10,10 @@ const Hero = () => {
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit similique labore, fuga ipsam repellendus aspernatur molestias. Libero voluptate, fugit, autem totam placeat eos illum adipisci voluptatum laboriosam, officiis illo.
           </p>
           <p>
-            <a href="#" className="btn btn-primary my-2">
+            <a href="#!" className="btn btn-primary my-2">
               Main call to action
             </a>
-            <a href="#" className="btn btn-secondary my-2">
+            <a href="#!" className="btn btn-secondary my-2">
               Secondary action
             </a>
           </p>
