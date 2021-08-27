@@ -7,10 +7,14 @@ import { ProductProvider } from "./context/providers/ProductsContext";
 /* Components */
 import Navbar from "./components/ui/Navbar";
 import HomePage from "./pages/home/HomePage";
-import ProductForm from "./pages/products/ProductForm";
+import { Toaster } from "react-hot-toast";
 
 import "./App.css";
 import Signup from "./pages/auth/Signup";
+import Signin from "./pages/auth/Signin";
+
+/* Pages */
+import ProductFormPage from "./pages/products/ProductForm";
 
 function App() {
   return (
@@ -22,10 +26,12 @@ function App() {
             <ProductProvider>
               <Route path="/" exact component={HomePage} />
               <Route path="/auth/signup" exact component={Signup} />
-              <Route path="/products/new" component={ProductForm} />
+              <Route path="/auth/signin" exact component={Signin} />
+              <Route path="/products/new" component={ProductFormPage} />
             </ProductProvider>
           </Switch>
         </div>
+        <Toaster />
       </AuthProvider>
     </Router>
   );

@@ -11,19 +11,17 @@ export const login = async (req, res, next) => {
 
     const userFound = await User.findOne({ email: result.email });
 
-    if (!userFound)
-      return next(createError.Unauthorized("The user does not exists"));
+    if (!userFound) throw createError.Unauthorized("The user does not exists");
 
     const isMatch = await userFound.validPassword(result.password);
 
-    if (!isMatch) return res.status(401).json({ message: "Invalid password" });
+    if (!isMatch) throw createError.Unauthorized("Invalid Password");
 
     const token = await signAccessToken(userFound.id);
 
     res.json({ token });
   } catch (error) {
-    console.log(error)
-    if (error.isJoi) return next(createError.BadRequest());
+    if (error.isJoi) error.status = 400;
     next(error);
   }
 };
@@ -34,27 +32,18 @@ export const register = async (req, res, next) => {
 
     const userFound = await User.findOne({ email: result.email });
 
-    if (userFound) {
-      res.statusMessage = "User already exists";
-      return res.status(400).json({ message: "User already exists" });
-    }
+    if (userFound) throw createError.Conflict("The user already exists");
 
     const user = new User({ email: result.email, password: result.password });
     user.password = await user.generateHash(user.password);
 
     const userSaved = await user.save();
 
-    console.log(userSaved);
+    const token = await signAccessToken(userSaved.id);
 
-    jwt.sign({ id: userSaved._id }, JWT_SECRET, (err, token) => {
-      if (err) {
-        res.status(500).send(err);
-      } else {
-        res.json({ token });
-      }
-    });
+    res.json({ token });
   } catch (error) {
-    if (error.isJoi) return next(createError.NotFound());
+    if (error.isJoi) error.status = 400;
     next(error);
   }
 };

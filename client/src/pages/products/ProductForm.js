@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { useProducts } from "../../context/providers/ProductsContext";
 import Spinner from "../../components/ui/Spinner";
+import { toast } from "react-hot-toast";
 
-const ProductForm = () => {
+const ProductFormPage = ({ history }) => {
   const { addNewProduct, isLoading } = useProducts();
   const [product, setProduct] = useState({
     name: "",
@@ -10,13 +11,29 @@ const ProductForm = () => {
     quantity: 0,
     description: "",
   });
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleChange = (e) =>
     setProduct({ ...product, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addNewProduct(product);
+
+    const formData = new FormData();
+
+    formData.append("name", product.name);
+    formData.append("price", product.price);
+    formData.append("quantity", product.quantity);
+    formData.append("description", product.description);
+    formData.append("image", selectedImage);
+
+    await addNewProduct(formData);
+    
+    history.push("/");
+
+    toast.success("🚀 New Product added!", {
+      position: "bottom-right",
+    });
   };
 
   return (
@@ -76,9 +93,29 @@ const ProductForm = () => {
                 className="form-control"
                 onChange={handleChange}
               ></textarea>
+
+              <label htmlFor="image">Image:</label>
+              <input
+                type="file"
+                name="image"
+                id="image"
+                className="form-control"
+                onChange={(e) => {
+                  console.log(e.target.files[0]);
+                  setSelectedImage(e.target.files[0]);
+                }}
+              />
             </div>
             <div className="col-md-4 my-auto ">
-              <img src="/assets/noimage.png" alt="" className="img-fluid" />
+              <img
+                src={
+                  selectedImage
+                    ? URL.createObjectURL(selectedImage)
+                    : "/assets/noimage.png"
+                }
+                type="file"
+                className="img-fluid"
+              />
             </div>
           </div>
         </form>
@@ -87,4 +124,4 @@ const ProductForm = () => {
   );
 };
 
-export default ProductForm;
+export default ProductFormPage;

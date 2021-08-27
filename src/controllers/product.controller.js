@@ -1,17 +1,37 @@
 import Product from "../models/Product";
+import { uploadImage } from "../helpers/cloudinary";
 
 export const getProducts = async (req, res) => {
   const products = await Product.find();
   res.json(products);
 };
 
-export const createProduct = async (req, res) => {
-  const { name, price, description, quantity } = req.body;
-  const newProduct = new Product({ name, price, description, quantity });
+export const createProduct = async (req, res, next) => {
+  try {
+    const { name, price, description, quantity } = req.body;
 
-  await newProduct.save();
+    /* TODO: validate fields */
+    console.log(req.files)
 
-  res.json(newProduct);
+    const result = await uploadImage(req.files.image.tempFilePath);
+
+    const newProduct = new Product({
+      name,
+      price,
+      description,
+      quantity,
+      images: {
+        url: result.secure_url,
+      },
+    });
+
+    await newProduct.save();
+
+    res.json(newProduct);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 };
 
 export const updateProduct = (req, res) => {

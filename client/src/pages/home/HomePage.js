@@ -1,6 +1,7 @@
 import React from "react";
 import { useProducts } from "../../context/providers/ProductsContext";
 import Hero from "../../components/Hero";
+import ProductCard from "../../components/products/ProductCard";
 
 const HomePage = () => {
   const { isLoading, products } = useProducts();
@@ -19,11 +20,8 @@ const HomePage = () => {
     <div className="row">
       <Hero />
       {products.map((product) => (
-        <div className="col-md-4" key={product._id}>
-          <div className="card card-body">
-            <h1>{product.name}</h1>
-            <p>{product.description}</p>
-          </div>
+        <div className="col-md-3 p-2" key={product._id}>
+          <ProductCard product={product} />
         </div>
       ))}
     </div>

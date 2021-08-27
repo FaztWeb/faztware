@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Spinner from "../../components/ui/Spinner";
 import { useAuth } from "../../context/providers/AuthContext";
+import { Link } from "react-router-dom";
 
-const Signup = () => {
+const Signup = ({ history }) => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -14,15 +15,29 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup(user);
+    try {
+      const userResponse = await signup(user);
+      if (userResponse) {
+        history.push(`/`);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="row h-100">
       <div className="col-md-4 offset-md-4 p-2 my-auto">
-        {errorMessage && <h1>{errorMessage}</h1>}
+        {errorMessage && (
+          <div
+            className="alert alert-danger text-center rounded-0"
+            role="alert"
+          >
+            {errorMessage}
+          </div>
+        )}
 
-        <div className="card card-body">
+        <div className="card card-body shadow">
           <h1>Signup</h1>
 
           <form onSubmit={handleSubmit}>
@@ -63,6 +78,10 @@ const Signup = () => {
                 "Signup"
               )}
             </button>
+
+            <p className="mt-4">
+              Do you have an Account? <Link to="/auth/signin">Login</Link>
+            </p>
           </form>
         </div>
       </div>

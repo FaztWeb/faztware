@@ -1,9 +1,12 @@
 import { AuthActions } from "../actions/authActions";
 
+const token = localStorage.getItem("token");
+const user = JSON.parse(localStorage.getItem("user"));
+
 export const initialState = {
-  isLoggedIn: false,
-  user: null,
-  token: null,
+  isLoggedIn: Boolean(token),
+  user: null || user,
+  token: "" || token,
   errorMessage: null,
   isLoading: false,
 };
@@ -23,13 +26,42 @@ export const authReducer = (state = initialState, action) => {
         isLoading: false,
         token: payload.token,
         user: payload.user,
-        isLoggedIn: true,
+        errorMessage: null,
       };
     case AuthActions.AUTH_SIGNUP_ERROR:
       return {
         ...state,
         isLoading: false,
         errorMessage: payload,
+      };
+    case AuthActions.AUTH_SIGNIN:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case AuthActions.AUTH_SIGNIN_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        token: payload.token,
+        user: payload.user,
+        errorMessage: null,
+        isLoggedIn: true,
+      };
+    case AuthActions.AUTH_SIGNIN_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: payload,
+      };
+    case AuthActions.AUTH_LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessage: null,
+        user: null,
+        token: null,
+        isLoggedIn: false,
       };
     default:
       return {
