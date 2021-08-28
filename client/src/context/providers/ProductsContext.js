@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer, useContext } from "react";
-import { getProducts, saveProduct } from "../../api/productsApi";
+import { getProducts, saveProduct, removeProduct } from "../../api/productsApi";
 import { productsReducer, intialState } from "../reducer/productsReducer";
 import { productActions } from "../actions/productsActions";
 
@@ -54,8 +54,39 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  const deleteProduct = async (id) => {
+    dispatch({ type: productActions.DELETE_PRODUCT });
+    try {
+      const res = await removeProduct(id);
+      console.log(res)
+      dispatch({ type: productActions.DELETE_PRODUCT_SUCCESS, payload: id });
+      return true;
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: productActions.DELETE_PRODUCT_ERROR,
+        payload: error.message,
+      });
+    }
+  };
+
+  const addProductToCart = (product) => {
+    dispatch({
+      type: productActions.ADD_PRODUCT_TO_CART,
+      payload: product,
+    });
+  };
+
   return (
-    <ProductContext.Provider value={{ ...state, getProducts, addNewProduct }}>
+    <ProductContext.Provider
+      value={{
+        ...state,
+        getProducts,
+        addNewProduct,
+        addProductToCart,
+        deleteProduct,
+      }}
+    >
       {children}
     </ProductContext.Provider>
   );

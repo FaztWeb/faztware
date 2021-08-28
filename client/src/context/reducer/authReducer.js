@@ -33,6 +33,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         errorMessage: payload,
+        isLoggedIn: true,
       };
     case AuthActions.AUTH_SIGNIN:
       return {

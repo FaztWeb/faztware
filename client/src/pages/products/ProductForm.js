@@ -115,6 +115,7 @@ const ProductFormPage = ({ history }) => {
                 }
                 type="file"
                 className="img-fluid"
+                alt={product.name}
               />
             </div>
           </div>

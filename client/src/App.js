@@ -15,6 +15,7 @@ import Signin from "./pages/auth/Signin";
 
 /* Pages */
 import ProductFormPage from "./pages/products/ProductForm";
+import CartPage from "./pages/cart/CartPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
               <Route path="/auth/signup" exact component={Signup} />
               <Route path="/auth/signin" exact component={Signin} />
               <Route path="/products/new" component={ProductFormPage} />
+              <Route path="/cart" component={CartPage} />
             </ProductProvider>
           </Switch>
         </div>

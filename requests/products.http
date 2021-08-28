@@ -1,0 +1,20 @@
+@api = http://localhost:4000/products
+
+GET {{api}}
+
+### create a new product
+POST {{api}}
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjZmM2ZlZDBhNTRhMmU2NWY0ODc2ZSIsImlhdCI6MTYzMDExNjg3OX0.xkCtImMFsI9kNYE5QPnR3o_M5BiG57Zl_-x02PXAgRs
+
+{
+    "name": "product1",
+    "price": 10.30,
+    "description": "product1 description",
+    "quantity": 10
+}
+
+
+### deleting a product
+DELETE {{api}}/61284f7788eedfbe716828ad
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjZmM2ZlZDBhNTRhMmU2NWY0ODc2ZSIsImlhdCI6MTYzMDExNjg3OX0.xkCtImMFsI9kNYE5QPnR3o_M5BiG57Zl_-x02PXAgRs
