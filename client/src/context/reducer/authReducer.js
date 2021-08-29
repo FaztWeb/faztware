@@ -27,13 +27,14 @@ export const authReducer = (state = initialState, action) => {
         token: payload.token,
         user: payload.user,
         errorMessage: null,
+        isLoggedIn: true,
       };
     case AuthActions.AUTH_SIGNUP_ERROR:
       return {
         ...state,
         isLoading: false,
         errorMessage: payload,
-        isLoggedIn: true,
+        isLoggedIn: false,
       };
     case AuthActions.AUTH_SIGNIN:
       return {
