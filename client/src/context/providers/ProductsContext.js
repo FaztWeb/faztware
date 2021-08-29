@@ -70,20 +70,12 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  const addProductToCart = (product) => {
-    dispatch({
-      type: productActions.ADD_PRODUCT_TO_CART,
-      payload: product,
-    });
-  };
-
   return (
     <ProductContext.Provider
       value={{
         ...state,
         getProducts,
         addNewProduct,
-        addProductToCart,
         deleteProduct,
       }}
     >

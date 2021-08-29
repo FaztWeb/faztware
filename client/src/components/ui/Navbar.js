@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../context/providers/AuthContext";
+import { useAuth, useCart } from "../../context";
+import { BiCart } from "react-icons/bi";
 
 const Navbar = () => {
   const { isLoggedIn, logout } = useAuth();
+  const { totalItems } = useCart();
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -38,8 +40,13 @@ const Navbar = () => {
               </Link>
             )}
 
-            <Link className="nav-link active" to="/cart">
-              Cart
+            <Link
+              className="nav-link active d-flex align-items-center"
+              to="/cart"
+            >
+              <BiCart size={20} className="me-1" />
+              <span>Cart</span>
+              <span className="badge bg-secondary ms-2">{totalItems}</span>
             </Link>
           </div>
         </div>

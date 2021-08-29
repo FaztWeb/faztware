@@ -3,13 +3,15 @@ import { FiShoppingCart } from "react-icons/fi";
 import { useProducts, useAuth } from "../../context";
 import { toast } from "react-hot-toast";
 import { BsTrash } from "react-icons/bs";
+import { useCart } from "../../context";
 
 const ProductCard = ({ product }) => {
-  const { addProductToCart, deleteProduct } = useProducts();
+  const { deleteProduct } = useProducts();
   const { user, isLoggedIn } = useAuth();
+  const { appendItemToCart } = useCart();
 
   const handleCart = (product) => {
-    addProductToCart(product);
+    appendItemToCart(product)
     toast.success("Product added to cart", {
       position: "bottom-right",
     });
@@ -38,6 +40,7 @@ const ProductCard = ({ product }) => {
         <h1 className="h3">{product.name}</h1>
         <p>{product.description}</p>
         <p>${product.price}</p>
+        <p>Stock: {product.price}</p>
         <div className="d-flex justify-content-between">
           <button
             className="btn btn-primary rounded-0 btn-sm"

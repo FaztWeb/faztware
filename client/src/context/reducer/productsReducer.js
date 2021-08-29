@@ -4,7 +4,6 @@ export const intialState = {
   isLoading: false,
   products: [],
   errorMessage: "",
-  cart: [],
 };
 
 export const productsReducer = (state, actions) => {

@@ -8,7 +8,7 @@ const ProductFormPage = ({ history }) => {
   const [product, setProduct] = useState({
     name: "",
     price: 0,
-    quantity: 0,
+    stock: 0,
     description: "",
   });
   const [selectedImage, setSelectedImage] = useState(null);
@@ -23,12 +23,12 @@ const ProductFormPage = ({ history }) => {
 
     formData.append("name", product.name);
     formData.append("price", product.price);
-    formData.append("quantity", product.quantity);
+    formData.append("stock", product.stock);
     formData.append("description", product.description);
     formData.append("image", selectedImage);
 
     await addNewProduct(formData);
-    
+
     history.push("/");
 
     toast.success("🚀 New Product added!", {
@@ -78,11 +78,11 @@ const ProductFormPage = ({ history }) => {
                 onChange={handleChange}
               />
 
-              <label htmlFor="quantity">Quantity:</label>
+              <label htmlFor="quantity">Stock:</label>
               <input
                 type="text"
                 className="form-control"
-                name="quantity"
+                name="stock"
                 onChange={handleChange}
               />
 
