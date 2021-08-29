@@ -63,16 +63,52 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
-export const getProductStats = async () => {
+export const getProductsStats = async (req, res) => {
   try {
-    const stats = Product.aggregate([
+    const stats = await Product.aggregate([
       { $match: { quantity: { $ne: 0 } } },
-      { $group: { _id: "$quantity", numProducts: { $sum: 1 } } }
+      {
+        $group: {
+          _id: "$quantity",
+          numProducts: { $sum: 1 },
+          product: { $push: "$name" }
+        }
+      }
     ]);
 
     res.status(200).json({
       status: "success",
       data: stats
     });
-  } catch (error) {}
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error
+    });
+  }
+};
+
+export const getProductsStatsOutStock = async (req, res) => {
+  try {
+    const stats = await Product.aggregate([
+      { $match: { quantity: { $eq: 0 } } },
+      {
+        $group: {
+          _id: "$quantity",
+          numProducts: { $sum: 1 },
+          product: { $push: "$name" }
+        }
+      }
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      data: stats
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "fail",
+      message: error
+    });
+  }
 };
