@@ -13,7 +13,7 @@ export const createProduct = async (req, res, next) => {
     const { name, price, description, quantity } = req.body;
 
     const productFound = await Product.findOne({ name: name });
-    
+
     if (productFound) throw createError.Conflict("Product Already exists");
 
     /* TODO: validate fields */
@@ -28,8 +28,8 @@ export const createProduct = async (req, res, next) => {
       description,
       quantity,
       images: {
-        url: imageURL,
-      },
+        url: imageURL
+      }
     });
 
     await newProduct.save();
@@ -61,4 +61,18 @@ export const deleteProduct = async (req, res) => {
     console.log(error);
     next(error);
   }
+};
+
+export const getProductStats = async () => {
+  try {
+    const stats = Product.aggregate([
+      { $match: { quantity: { $ne: 0 } } },
+      { $group: { _id: "$quantity", numProducts: { $sum: 1 } } }
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      data: stats
+    });
+  } catch (error) {}
 };
