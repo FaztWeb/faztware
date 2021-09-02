@@ -1,6 +1,4 @@
 import { User } from "../models";
-import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "../config";
 import { userSchema } from "../libs/schema.validator";
 import createError from "http-errors";
 import { signAccessToken } from "../helpers/signAccessToken";
@@ -28,14 +26,14 @@ export const login = async (req, res, next) => {
 
 export const register = async (req, res, next) => {
   try {
-    const result = await userSchema.validateAsync(req.body);
+    const payload = await userSchema.validateAsync(req.body);
 
-    const userFound = await User.findOne({ email: result.email });
+    const userFound = await User.findOne({ email: payload.email });
 
     if (userFound) throw createError.Conflict("The user already exists");
 
-    const user = new User({ email: result.email, password: result.password });
-    user.password = await user.generateHash(user.password);
+    const password = await user.generateHash(payload.password);
+    const user = new User({ email: payload.email, password });
 
     const userSaved = await user.save();
 

@@ -7,7 +7,7 @@ export const signAccessToken = (userId) => {
       reject(new Error("userId is required"));
     }
     jwt.sign({ id: userId }, JWT_SECRET, (err, token) => {
-      if (err) return reject(err);
+      if (err) reject(err);
       resolve(token);
     });
   });

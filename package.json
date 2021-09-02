@@ -1,17 +1,23 @@
 {
-  "name": "FaztWare",
+  "name": "faztware",
   "version": "0.0.1",
   "description": "An ecommerce website",
   "main": "index.js",
+  "repository": {
+    "url": "https://github.com/FaztWeb/faztware"
+  },
   "scripts": {
+    "start": "node dist/index.js",
+    "build": "babel src -d dist",
     "dev": "nodemon src/index.js --exec babel-node --ignore client"
   },
   "keywords": [],
-  "author": "",
+  "author": "fazttech",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cloudinary": "^1.26.3",
+    "core-js": "^3.17.2",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -20,7 +26,8 @@
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "regenerator-runtime": "^0.13.9"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",

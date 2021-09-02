@@ -10,14 +10,14 @@ import { verifyToken } from "../middlewares/auth.middleware";
 
 const router = Router();
 
-router.get("/products", getProducts);
+router.get("/", getProducts);
 
-router.post("/products", verifyToken, createProduct);
+router.post("/", verifyToken, createProduct);
 
-router.get("/products/:id", getProduct);
+router.get("/:id", getProduct);
 
-router.put("/products/:id", verifyToken, updateProduct);
+router.put("/:id", verifyToken, updateProduct);
 
-router.delete("/products/:id", verifyToken, deleteProduct);
+router.delete("/:id", verifyToken, deleteProduct);
 
 export default router;

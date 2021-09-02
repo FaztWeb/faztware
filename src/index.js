@@ -1,4 +1,6 @@
 import express from "express";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import "./config/mongoose";
 import cors from "cors";
 import morgan from "morgan";
@@ -8,7 +10,7 @@ import fileUpload from "express-fileupload";
 import productRoutes from "./routes/products.routes";
 import authRoutes from "./routes/auth.routes";
 
-const app = express();
+export const app = express();
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -21,8 +23,8 @@ app.use(
   })
 );
 
-app.use(productRoutes);
-app.use(authRoutes);
+app.use("/products", productRoutes);
+app.use("/auth", authRoutes);
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
