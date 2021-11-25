@@ -5,7 +5,7 @@ const Hero = () => {
         <div className="col-lg-6 col-md-8 mx-auto">
           <h1 className="fw-light">FaztWare</h1>
           <p className="lead text-muted">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempora odit similique labore, fuga ipsam repellendus aspernatur molestias. Libero voluptate, fugit, autem totam placeat eos illum adipisci voluptatum laboriosam, officiis illo.
+            FaztWare is a web application that helps you to manage your
           </p>
           <p>
             <a href="#!" className="btn btn-primary my-2">
