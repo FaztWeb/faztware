@@ -17,8 +17,6 @@ import Signin from "./pages/auth/Signin";
 import ProductFormPage from "./pages/products/ProductForm";
 import CartPage from "./pages/cart/CartPage";
 
-console.log('Hello world')
-
 function App() {
   return (
     <Router>
